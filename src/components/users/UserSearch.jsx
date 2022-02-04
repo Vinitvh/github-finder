@@ -1,7 +1,10 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
+import GithubContext from "../../context/github/GithubContext";
 
 function UserSearch() {
   const [text, setText] = useState("");
+
+  const { searchUsers } = useContext(GithubContext);
 
   const handleChange = (e) => {
     setText(e.target.value);
@@ -12,7 +15,7 @@ function UserSearch() {
     if (text === "") {
       alert("Please enter something");
     } else {
-      // todo fetch users
+      searchUsers(text);
       setText("");
     }
   };
