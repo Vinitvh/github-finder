@@ -39,10 +39,11 @@ export const GithubProvider = ({ children }) => {
       type: "SET_LOADING",
     });
 
-  const clearUsers = () =>
+  const clearUsers = () => {
     dispatch({
       type: "CLEAR_USER",
     });
+  };
 
   return (
     <GithubContext.Provider
