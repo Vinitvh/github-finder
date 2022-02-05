@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/layouts/Navbar";
 import Footer from "./components/layouts/Footer";
+import Alert from "./components/layouts/Alert";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
@@ -16,6 +17,7 @@ function App() {
           <div className="flex flex-col justify-between h-screen">
             <Navbar />
             <main className="container mx-auto px-3">
+              <Alert />
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
