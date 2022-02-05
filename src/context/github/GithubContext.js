@@ -41,7 +41,7 @@ export const GithubProvider = ({ children }) => {
 
   const clearUsers = () => {
     dispatch({
-      type: "CLEAR_USER",
+      type: "CLEAR_USERS",
     });
   };
 
