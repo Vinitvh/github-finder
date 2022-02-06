@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { useParams } from "react-router-dom";
 import githubReducer from "./GithubReducer";
 
 const GithubContext = createContext();
@@ -10,6 +11,7 @@ export const GithubProvider = ({ children }) => {
   const initialState = {
     users: [],
     user: {},
+    repos: [],
     loading: false,
   };
 
@@ -55,6 +57,36 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
+  // Get top repositories
+  const getRepos = async (login) => {
+    setLoading();
+
+    const params = new URLSearchParams({
+      sort: "created",
+      per_page: 10,
+    });
+
+    const response = await fetch(
+      `${GITHUB_URL}/users/${login}/repos?${params}`,
+      {
+        headers: {
+          Authorization: `token ${GITHUB_TOKEN}`,
+        },
+      }
+    );
+
+    if (response.status === 404) {
+      window.location = "/notfound";
+    } else {
+      const data = await response.json();
+
+      dispatch({
+        type: "GET_REPOS",
+        payload: data,
+      });
+    }
+  };
+
   const setLoading = () =>
     dispatch({
       type: "SET_LOADING",
@@ -69,12 +101,11 @@ export const GithubProvider = ({ children }) => {
   return (
     <GithubContext.Provider
       value={{
-        users: state.users,
-        loading: state.loading,
-        user: state.user,
+        ...state,
         searchUsers,
         clearUsers,
         getUser,
+        getRepos,
       }}
     >
       {children}
