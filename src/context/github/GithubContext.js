@@ -28,6 +28,7 @@ export const GithubProvider = ({ children }) => {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
+
     const { items } = await response.json();
 
     dispatch({
@@ -44,11 +45,12 @@ export const GithubProvider = ({ children }) => {
         Authorization: `token ${GITHUB_TOKEN}`,
       },
     });
+
+    const data = await response.json();
+
     if (response.status === 404) {
       window.location = "/notfound";
     } else {
-      const data = await response.json();
-
       dispatch({
         type: "GET_USER",
         payload: data,
@@ -56,7 +58,6 @@ export const GithubProvider = ({ children }) => {
     }
   };
 
-  // Get top repositories
   const getRepos = async (login) => {
     setLoading();
 
@@ -74,16 +75,12 @@ export const GithubProvider = ({ children }) => {
       }
     );
 
-    if (response.status === 404) {
-      window.location = "/notfound";
-    } else {
-      const data = await response.json();
+    const data = await response.json();
 
-      dispatch({
-        type: "GET_REPOS",
-        payload: data,
-      });
-    }
+    dispatch({
+      type: "GET_REPOS",
+      payload: data,
+    });
   };
 
   const setLoading = () =>
@@ -91,11 +88,11 @@ export const GithubProvider = ({ children }) => {
       type: "SET_LOADING",
     });
 
-  const clearUsers = () => {
+  const clearUsers = () =>
     dispatch({
       type: "CLEAR_USERS",
+      users: [],
     });
-  };
 
   return (
     <GithubContext.Provider
