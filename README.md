@@ -1,8 +1,8 @@
 # GitHub Finder React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React App for searching GitHub profiles and see their profile details.
 
-## Available Scripts
+## To Run this App
 
 In the project directory, you can run:
 
